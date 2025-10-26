@@ -101,6 +101,35 @@ flowchart LR
   linkStyle default stroke:#5f6368,stroke-width:1.4px;
 ```
 
+```mermaid
+%%{init: {"theme":"base"}}%%
+flowchart LR
+  subgraph Canal["Canal del Cliente"]
+    WAB[WhatsApp Business]
+  end
+  subgraph IA["IA Conversacional"]
+    CX[Dialogflow CX]
+  end
+  subgraph App["Aplicación Serverless"]
+    RUN[Cloud Run / Functions]
+    SCH[Cloud Scheduler]
+  end
+  subgraph Datos["Transaccional"]
+    SQL[(Cloud SQL — Réplica de Minegocio)]
+  end
+  subgraph Analitica["Analítica"]
+    BQ_RAW[(BigQuery - RAW)]
+    BQ_VIEW[(BigQuery - VIEW)]
+    LOOKER[Looker Studio]
+  end
+  WAB --> CX
+  CX --> RUN
+  SCH -. cada hora .-> RUN
+  RUN --> SQL
+  RUN -- histórico -> BQ_RAW
+  BQ_RAW --> BQ_VIEW
+  BQ_VIEW --> LOOKER
+```
 ## **Descripción del Funcionamiento**
 ## **Flujo 1: Monitoreo Automático**
   1.1. Cloud Scheduler activa cada hora (ej: 8am, 9am, 10am...)
