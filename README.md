@@ -103,11 +103,11 @@ flowchart LR
 
 ## **Descripción del Funcionamiento**
 ## **Flujo 1: Monitoreo Automático
-  ® Cloud Scheduler activa cada hora (ej: 8am, 9am, 10am...)
-  ® Cloud Function lee stock de todos los productos
-  ® Si detecta stock_actual < stock_minimo ® Guarda en BigQuery
-  ® Envía mensaje WhatsApp: 'nn Labial Maybelline: 3 unidades (mínimo: 8)'
-  ® Dashboard Looker se actualiza automáticamente
+  1.1. Cloud Scheduler activa cada hora (ej: 8am, 9am, 10am...)
+  1.2. Cloud Function lee stock de todos los productos
+  1.3. Si detecta stock_actual < stock_minimo ® Guarda en BigQuery
+  1.4. Envía mensaje WhatsApp: 'nn Labial Maybelline: 3 unidades (mínimo: 8)'
+  1.5. Dashboard Looker se actualiza automáticamente
 ## **Flujo 2: Predicción de Demanda
   ® Cada noche a las 11pm, Cloud Scheduler activa análisis
   ® Cloud Function extrae histórico de ventas (últimos 12 meses)
