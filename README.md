@@ -137,13 +137,13 @@ flowchart LR
   3. Si detecta stock_actual < stock_minimo ® Guarda en BigQuery
   4. Envía mensaje WhatsApp: 'nn Labial Maybelline: 3 unidades (mínimo: 8)'
   5. Dashboard Looker se actualiza automáticamente
-## **Flujo 2: Predicción de Demanda
+## **Flujo 2: Predicción de Demanda**
   1. Cada noche a las 11pm, Cloud Scheduler activa análisis
   2. Cloud Function extrae histórico de ventas (últimos 12 meses)
   3. Vertex AI analiza y predice: 'Venderás 23 labiales próximo mes'
   4. Calcula: 23 - 3 (stock actual) = 20 ® 'Pide 20 unidades'
   5. Guarda recomendación en BigQuery
-## **Flujo 3: Atención Cliente WhatsApp
+## **Flujo 3: Atención Cliente WhatsApp**
   1. Cliente: '¿Tienes iPhone 15?'
   2. Dialogflow CX procesa pregunta
   3. Cloud Function consulta stock en base de datos
