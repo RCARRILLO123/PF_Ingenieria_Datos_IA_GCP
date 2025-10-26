@@ -102,7 +102,7 @@ flowchart LR
 ```
 
 ## **Descripción del Funcionamiento**
-## **Flujo 1: Monitoreo Automático
+## **Flujo 1: Monitoreo Automático**
   1.1. Cloud Scheduler activa cada hora (ej: 8am, 9am, 10am...)
   1.2. Cloud Function lee stock de todos los productos
   1.3. Si detecta stock_actual < stock_minimo ® Guarda en BigQuery
