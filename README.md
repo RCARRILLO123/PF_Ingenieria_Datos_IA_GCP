@@ -44,30 +44,59 @@ Dashboards visuales. Muestra métricas actualizadas en tiempo real.
 ## 🗺️ Diagrama de Arquitectura GCP
 
 ```mermaid
+%% Tema y colores
+%% (GitHub sí respeta esto)
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "primaryColor": "#e8f0fe",
+    "primaryTextColor": "#1f1f1f",
+    "primaryBorderColor": "#1a73e8",
+    "lineColor": "#5f6368",
+    "fontFamily": "Inter,Segoe UI,Helvetica,Arial",
+    "clusterBkg": "#ffffff",
+    "clusterBorder": "#dadce0"
+  }
+}}%%
+
 flowchart LR
+  %% Grupos (subgraphs) opcionales
+  subgraph Canal["Canal del Cliente"]
+    WAB[WhatsApp Business]
+  end
 
-  %% ===== NODOS CON IMÁGENES (sin mostrar rutas) =====
-  WAB(["WhatsApp Business"])
+  subgraph IA["IA Conversacional"]
+    CX[Dialogflow CX]
+  end
 
-  CX(["<img src='docs/icons/dialogflow-cx.svg' width='45'/><br/>Dialogflow CX"])
+  subgraph App["Aplicación Serverless"]
+    RUN[Cloud Run<br/>API / Webhook]
+    SCH[Cloud Scheduler<br/>Tareas programadas]
+  end
 
-  RUN(["<img src='docs/icons/cloud-run.svg' width='45'/><br/>Cloud Run<br/>API / Webhook"])
+  subgraph Datos["Transaccional"]
+    SQL[(Cloud SQL<br/>Productos / Inventario / Pedidos)]
+  end
 
-  SQL(["<img src='docs/icons/cloud-sql.svg' width='45'/><br/>Cloud SQL<br/>Productos / Inventario / Pedidos"])
+  subgraph Analitica["Analítica"]
+    BQ_RAW[(BigQuery - RAW)]
+    BQ_VIEW[(BigQuery - VIEW)]
+    LOOKER[Looker Studio<br/>Dashboard]
+  end
 
-  BQ(["<img src='docs/icons/bigquery.svg' width='45'/><br/>BigQuery<br/>Histórico / Análisis"])
-
-  LOOKER(["<img src='docs/icons/looker.svg' width='45'/><br/>Looker Studio<br/>Dashboard"])
-
-  SCH(["<img src='docs/icons/cloud-scheduler.svg' width='45'/><br/>Cloud Scheduler<br/>Tareas Automáticas"])
-
-
-  %% ===== FLUJO DEL SISTEMA =====
+  %% Flujo
   WAB --> CX
   CX --> RUN
+  SCH -. ejecuta cada hora .-> RUN
   RUN --> SQL
-  RUN --> BQ
-  BQ --> LOOKER
-  SCH -. Ejecuta cada hora .-> RUN
+  RUN -- eventos/ventas --> BQ_RAW
+  BQ_RAW --> BQ_VIEW
+  BQ_VIEW --> LOOKER
 
+  %% Estilos
+  classDef svc fill:#e8f0fe,stroke:#1a73e8,stroke-width:1.5px,color:#1f1f1f;
+  classDef data fill:#fff,stroke:#1a73e8,stroke-width:1.5px,color:#1f1f1f;
+  class WAB,CX,RUN,SCH,LOOKER svc;
+  class SQL,BQ_RAW,BQ_VIEW data;
+  linkStyle default stroke:#5f6368,stroke-width:1.4px;
 ```
