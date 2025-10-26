@@ -100,3 +100,23 @@ flowchart LR
   class SQL,BQ_RAW,BQ_VIEW data;
   linkStyle default stroke:#5f6368,stroke-width:1.4px;
 ```
+
+## **Descripción del Funcionamiento**
+## **Flujo 1: Monitoreo Automático
+  ® Cloud Scheduler activa cada hora (ej: 8am, 9am, 10am...)
+  ® Cloud Function lee stock de todos los productos
+  ® Si detecta stock_actual < stock_minimo ® Guarda en BigQuery
+  ® Envía mensaje WhatsApp: 'nn Labial Maybelline: 3 unidades (mínimo: 8)'
+  ® Dashboard Looker se actualiza automáticamente
+## **Flujo 2: Predicción de Demanda
+  ® Cada noche a las 11pm, Cloud Scheduler activa análisis
+  ® Cloud Function extrae histórico de ventas (últimos 12 meses)
+  ® Vertex AI analiza y predice: 'Venderás 23 labiales próximo mes'
+  ® Calcula: 23 - 3 (stock actual) = 20 ® 'Pide 20 unidades'
+  ® Guarda recomendación en BigQuery
+## **Flujo 3: Atención Cliente WhatsApp
+  ® Cliente: '¿Tienes iPhone 15?'
+  ® Dialogflow CX procesa pregunta
+  ® Cloud Function consulta stock en base de datos
+  ® Bot responde: 'Sí, tenemos 5 unidades a S/. 4,500'
+  ® Todo en 2 segundos, sin intervención manual
