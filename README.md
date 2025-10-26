@@ -46,27 +46,28 @@ Dashboards visuales. Muestra métricas actualizadas en tiempo real.
 ```mermaid
 flowchart LR
 
-  %% ==== Nodos con imágenes ====
+  %% ===== NODOS CON IMÁGENES (sin mostrar rutas) =====
   WAB(["WhatsApp Business"])
 
-  CX(["![](docs/icons/dialogflow-cx.svg)<br/>Dialogflow CX"])
+  CX(["<img src='docs/icons/dialogflow-cx.svg' width='45'/><br/>Dialogflow CX"])
 
-  RUN(["![](docs/icons/cloud-run.svg)<br/>Cloud Run<br/>API / Webhook"])
+  RUN(["<img src='docs/icons/cloud-run.svg' width='45'/><br/>Cloud Run<br/>API / Webhook"])
 
-  SQL(["![](docs/icons/cloud-sql.svg)<br/>Cloud SQL<br/>Inventario / Productos / Pedidos"])
+  SQL(["<img src='docs/icons/cloud-sql.svg' width='45'/><br/>Cloud SQL<br/>Productos / Inventario / Pedidos"])
 
-  BQ(["![](docs/icons/bigquery.svg)<br/>BigQuery<br/>Histórico y análisis"])
+  BQ(["<img src='docs/icons/bigquery.svg' width='45'/><br/>BigQuery<br/>Histórico / Análisis"])
 
-  LOOKER(["![](docs/icons/looker.svg)<br/>Looker Studio<br/>Dashboard de Ventas"])
+  LOOKER(["<img src='docs/icons/looker.svg' width='45'/><br/>Looker Studio<br/>Dashboard"])
 
-  SCH(["![](docs/icons/cloud-scheduler.svg)<br/>Cloud Scheduler<br/>Tareas Automáticas"])
+  SCH(["<img src='docs/icons/cloud-scheduler.svg' width='45'/><br/>Cloud Scheduler<br/>Tareas Automáticas"])
 
-  %% ==== Flujo del sistema ====
+
+  %% ===== FLUJO DEL SISTEMA =====
   WAB --> CX
   CX --> RUN
   RUN --> SQL
   RUN --> BQ
   BQ --> LOOKER
-  SCH -. Ejecuta acciones programadas .-> RUN
+  SCH -. Ejecuta cada hora .-> RUN
 
 ```
