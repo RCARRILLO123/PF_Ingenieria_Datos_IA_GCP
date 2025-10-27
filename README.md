@@ -167,7 +167,7 @@ flowchart LR
   BOT --> MAIL
 ```
 ## **Descripción del Funcionamiento**
-## **Flujo 1: Monitoreo Automático**
+## **Flujo 1: Descripción del Funcionamiento (Actualizado Multicanal)**
   1. Cloud Scheduler activa la verificación automáticamente cada hora (ej: 8:00, 9:00, 10:00…).
   2. Cloud Functions consulta el inventario en Cloud SQL (Minegocio).
   3. Si encuentra productos con:
@@ -175,14 +175,14 @@ flowchart LR
     → registra el evento en BigQuery (histórico).
   4. Cloud Functions envía una alerta automática al canal interno (WhatsApp Business).
   5. El Dashboard en Looker Studio se actualiza automáticamente.
-## **Flujo 2: Predicción de Demanda**
+## **Flujo 2: Predicción de Demanda (IA para reposición inteligente)**
   1. Cada noche a las 11:00 PM, Cloud Scheduler ejecuta el análisis de demanda.
   2. Cloud Functions extrae ventas históricas desde BigQuery (ej: últimos 12 meses).
   3. Vertex AI analiza el comportamiento de ventas y predice la demanda futura.
   4. Se calcula automáticamente la cantidad recomendada de reposición:
     demanda_predicha – stock_actual
   5. Se guarda la recomendación en BigQuery y se muestra en Looker Studi
-## **Flujo 3: Atención Cliente WhatsApp**
+## **Flujo 3: Atención Automática Multicanal (WhatsApp, Facebook, Llamadas, Correo y Web)**
   1. El cliente realiza una consulta desde cualquier canal:
       * WhatsApp Business
       * Facebook/Messenger
