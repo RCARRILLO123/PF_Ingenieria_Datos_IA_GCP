@@ -16,11 +16,11 @@ Tiempo invertido: entre 2–3 horas diarias en consultas y verificación de prod
 ## **Solución Propuesta**
 Automatizar el control de inventario usando servicios de Google Cloud Platform (GCP)
 para que el sistema trabaje 24/7 sin mi intervención. El sistema hará:
-• Verificar automáticamente el stock cada hora (sin que yo entre a la web)
-• Enviar alertas a WhatsApp cuando un producto esté bajo: 'iPhone 15: Stock 3/10'
-• Predecir con IA cuánto se venderá: 'Venderás 18 labiales este mes, pide 20 unidades'
-• Responder automáticamente a clientes en WhatsApp: '¿Tienes iPhone? ® Sí, 5 unidades'
-• Mostrar dashboards con ventas, stock y predicciones actualizados en tiempo real
+* Verificar automáticamente el stock cada hora (sin que yo entre a la web)
+* Enviar alertas a WhatsApp cuando un producto esté bajo: 'iPhone 15: Stock 3/10'
+* Predecir con IA cuánto se venderá: 'Venderás 18 labiales este mes, pide 20 unidades'
+* Responder automáticamente a clientes en WhatsApp: '¿Tienes iPhone? ® Sí, 5 unidades'
+* Mostrar dashboards con ventas, stock y predicciones actualizados en tiempo real
 
 ## **Servicios GCP Utilizados**
 1. Cloud SQL
