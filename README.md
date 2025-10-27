@@ -183,8 +183,12 @@ flowchart LR
     demanda_predicha – stock_actual
   5. Se guarda la recomendación en BigQuery y se muestra en Looker Studi
 ## **Flujo 3: Atención Cliente WhatsApp**
-  1. Cliente: '¿Tienes iPhone 15?'
-  2. Dialogflow CX procesa pregunta
-  3. Cloud Function consulta stock en base de datos
-  4. Bot responde: 'Sí, tenemos 5 unidades a S/. 4,500'
-  5. Todo en 2 segundos, sin intervención manual
+  1. El cliente realiza una consulta desde cualquier canal:
+      * WhatsApp Business
+      * Facebook/Messenger
+      * Llamada (IVR/Agente asistido)
+      * Correo electrónico
+      * Plataforma Web
+  2. Dialogflow CX interpreta la intención del cliente (ej: consultar stock, precio, estado de pedido).
+  3. Cloud Functions consulta la información en Cloud SQL (Minegocio).
+  4. El bot responde automáticamente en el mismo canal donde el cliente inició la conversación.al
