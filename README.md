@@ -176,11 +176,12 @@ flowchart LR
   4. Cloud Functions envía una alerta automática al canal interno (WhatsApp Business).
   5. El Dashboard en Looker Studio se actualiza automáticamente.
 ## **Flujo 2: Predicción de Demanda**
-  1. Cada noche a las 11pm, Cloud Scheduler activa análisis
-  2. Cloud Function extrae histórico de ventas (últimos 12 meses)
-  3. Vertex AI analiza y predice: 'Venderás 23 labiales próximo mes'
-  4. Calcula: 23 - 3 (stock actual) = 20 ® 'Pide 20 unidades'
-  5. Guarda recomendación en BigQuery
+  1. Cada noche a las 11:00 PM, Cloud Scheduler ejecuta el análisis de demanda.
+  2. Cloud Functions extrae ventas históricas desde BigQuery (ej: últimos 12 meses).
+  3. Vertex AI analiza el comportamiento de ventas y predice la demanda futura.
+  4. Se calcula automáticamente la cantidad recomendada de reposición:
+    demanda_predicha – stock_actual
+  5. Se guarda la recomendación en BigQuery y se muestra en Looker Studi
 ## **Flujo 3: Atención Cliente WhatsApp**
   1. Cliente: '¿Tienes iPhone 15?'
   2. Dialogflow CX procesa pregunta
