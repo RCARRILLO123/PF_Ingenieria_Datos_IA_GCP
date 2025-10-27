@@ -43,62 +43,46 @@ Dashboards visuales. Muestra métricas actualizadas en tiempo real.
 
 ## 🗺️ Diagrama de Arquitectura GCP
 
-```mermaid
-%% Tema y colores
-%% (GitHub sí respeta esto)
-%%{init: {
-  "theme": "base",
-  "themeVariables": {
-    "primaryColor": "#e8f0fe",
-    "primaryTextColor": "#1f1f1f",
-    "primaryBorderColor": "#1a73e8",
-    "lineColor": "#5f6368",
-    "fontFamily": "Inter,Segoe UI,Helvetica,Arial",
-    "clusterBkg": "#ffffff",
-    "clusterBorder": "#dadce0"
-  }
-}}%%
+## Flujo actual (con colores)
 
+```mermaid
+%%{init: {"theme":"base", "themeVariables":{
+"primaryColor":"#e8f0fe","primaryTextColor":"#1f1f1f","primaryBorderColor":"#1a73e8",
+"lineColor":"#5f6368","fontFamily":"Inter,Segoe UI,Helvetica,Arial"}}}%%
 flowchart LR
-  %% Grupos (subgraphs) opcionales
-  subgraph Canal["Canal del Cliente"]
+  classDef canal fill:#E3F2FD,stroke:#1A73E8,stroke-width:1.5px,color:#0F1A2B;
+  classDef ia fill:#FFF8E1,stroke:#FB8C00,stroke-width:1.5px,color:#402A00;
+  classDef api fill:#E8F5E9,stroke:#2E7D32,stroke-width:1.5px,color:#0F2A10;
+  classDef datos fill:#FCE8E6,stroke:#C62828,stroke-width:1.5px,color:#3A0E0E;
+
+  subgraph Canal["Canales del Cliente"]
     WAB[WhatsApp Business]
+    WEB[Plataforma Web<br/>(Consultas y Pedidos)]
   end
+  class WAB,WEB canal;
 
   subgraph IA["IA Conversacional"]
-    CX[Dialogflow CX]
+    BOT[Motor de IA / NLU<br/>(Dialogflow u otro)]
   end
+  class BOT ia;
 
-  subgraph App["Aplicación Serverless"]
-    RUN[Cloud Run<br/>API / Webhook]
-    SCH[Cloud Scheduler<br/>Tareas programadas]
+  subgraph API["API Backend"]
+    SRV[Servicio API<br/>(REST / Webhook)]
   end
+  class SRV api;
 
-  subgraph Datos["Transaccional"]
-    SQL[(Cloud SQL<br/>Productos / Inventario / Pedidos)]
+  subgraph DB["Datos"]
+    MYSQL[(MySQL<br/>Base de Datos)]
   end
+  class MYSQL datos;
 
-  subgraph Analitica["Analítica"]
-    BQ_RAW[(BigQuery - RAW)]
-    BQ_VIEW[(BigQuery - VIEW)]
-    LOOKER[Looker Studio<br/>Dashboard]
-  end
-
-  %% Flujo
-  WAB --> CX
-  CX --> RUN
-  SCH -. ejecuta cada hora .-> RUN
-  RUN --> SQL
-  RUN -- eventos/ventas --> BQ_RAW
-  BQ_RAW --> BQ_VIEW
-  BQ_VIEW --> LOOKER
-
-  %% Estilos
-  classDef svc fill:#e8f0fe,stroke:#1a73e8,stroke-width:1.5px,color:#1f1f1f;
-  classDef data fill:#fff,stroke:#1a73e8,stroke-width:1.5px,color:#1f1f1f;
-  class WAB,CX,RUN,SCH,LOOKER svc;
-  class SQL,BQ_RAW,BQ_VIEW data;
-  linkStyle default stroke:#5f6368,stroke-width:1.4px;
+  WAB -->|Mensajes| BOT
+  BOT -->|Webhook| SRV
+  WEB -->|HTTP/HTTPS| SRV
+  SRV -->|CRUD| MYSQL
+  SRV -->|Respuesta| WEB
+  SRV -->|Respuesta/Texto| BOT
+  BOT -->|Mensaje| WAB
 ```
 
 ```mermaid
