@@ -112,6 +112,59 @@ flowchart LR
   BQ_RAW --> BQ_VIEW
   BQ_VIEW --> LOOKER
 ```
+
+## Flujo Actual con Múltiples Canales de Atención
+
+```mermaid
+%%{init: {"theme":"base"}}%%
+flowchart LR
+
+  %% Estilos
+  classDef canal fill:#E3F2FD,stroke:#1A73E8,stroke-width:1.5px,color:#0F1A2B;
+  classDef ia fill:#FFF8E1,stroke:#FB8C00,stroke-width:1.5px,color:#402A00;
+  classDef api fill:#E8F5E9,stroke:#2E7D32,stroke-width:1.5px,color:#0F2A10;
+  classDef datos fill:#FCE8E6,stroke:#C62828,stroke-width:1.5px,color:#3A0E0E;
+
+  %% Canales del Cliente
+  subgraph Canal["Canales del Cliente"]
+    WAB[WhatsApp Business]
+    FB[Facebook / Messenger]
+    CALL[Llamadas / Call Center]
+    MAIL[Correo Electrónico]
+  end
+  class WAB,FB,CALL,MAIL canal;
+
+  %% IA Conversacional
+  subgraph IA["IA Conversacional"]
+    BOT[Dialogflow CX]
+  end
+  class BOT ia;
+
+  %% Backend / API
+  subgraph API["API Backend"]
+    SRV[Cloud Run / API REST]
+  end
+  class SRV api;
+
+  %% Base de Datos
+  subgraph DB["Datos"]
+    MYSQL[(MySQL<br/>Minegocio)]
+  end
+  class MYSQL datos;
+
+  %% Flujo
+  WAB --> BOT
+  FB --> BOT
+  CALL --> BOT
+  MAIL --> BOT
+
+  BOT -->|Webhook| SRV
+  SRV -->|Consultas / Pedidos / Stock| MYSQL
+  SRV -->|Respuestas| BOT
+
+  BOT --> WAB
+```
+
 ## **Descripción del Funcionamiento**
 ## **Flujo 1: Monitoreo Automático**
   1. Cloud Scheduler activa cada hora (ej: 8am, 9am, 10am...)
