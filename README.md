@@ -41,7 +41,7 @@ Chatbot para WhatsApp. Responde automáticamente consultas de disponibilidad.
 Dashboards visuales. Muestra métricas actualizadas en tiempo real.
 
 
-## 🗺️ Diagrama de Arquitectura GCP
+## 🗺️ Diagrama de Arquitectura Actual - AS IS
 
 ```mermaid
 %%{init: {"theme":"base", "themeVariables":{
@@ -82,7 +82,7 @@ flowchart LR
   SRV -->|Respuesta/Texto| BOT
   BOT -->|Mensaje| WAB
 ```
-
+## 🗺️ Diagrama de Arquitectura GCP - TO BE
 ```mermaid
 %%{init: {"theme":"base"}}%%
 flowchart LR
