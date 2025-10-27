@@ -347,6 +347,82 @@ flowchart LR
   BOT --> MAIL
 ```
 
+```mermaid
+%%{init: {"theme":"base"}}%%
+flowchart LR
+
+  %% Estilos
+  classDef canal fill:#D7EBFF,stroke:#1A73E8,stroke-width:1.3px,color:#003366;
+  classDef ia fill:#FFF4CC,stroke:#FF9800,stroke-width:1.3px,color:#663C00;
+  classDef api fill:#E7F8EC,stroke:#2E7D32,stroke-width:1.3px,color:#0F3D1E;
+  classDef datos fill:#FFE6E6,stroke:#C62828,stroke-width:1.3px,color:#4A0606;
+  classDef bi fill:#EEF3FF,stroke:#3F51B5,stroke-width:1.3px,color:#0D1331;
+
+  %% Canales del cliente
+  subgraph CANALES["Canales del cliente"]
+    WAB[WhatsApp Business]
+    FB[Facebook o Messenger]
+    CALL[Llamadas o Call Center]
+    MAIL[Correo Electronico]
+    WEB[Plataforma Web de Pedidos]
+  end
+  class WAB,FB,CALL,MAIL,WEB canal;
+
+  %% IA Conversacional
+  subgraph IA["IA Conversacional"]
+    BOT[Dialogflow CX]
+  end
+  class BOT ia;
+
+  %% Backend Automatizado
+  subgraph APP["Automatizacion Backend"]
+    SCH[Cloud Scheduler]
+    FUNC[Cloud Functions]
+  end
+  class SCH,FUNC api;
+
+  %% Base de datos
+  subgraph DATA["Base de Datos"]
+    SQL[(Cloud SQL)]
+  end
+  class SQL datos;
+
+  %% Analitica e IA predictiva
+  subgraph ANALYTICS["Analitica y Prediccion"]
+    BQ[(BigQuery - Historico)]
+    VA[Vertex AI - Prediccion]
+    LOOKER[Looker Studio - Dashboard]
+  end
+  class BQ,VA,LOOKER bi;
+
+  %% Flujo Operativo
+  WAB --> BOT
+  FB --> BOT
+  CALL --> BOT
+  MAIL --> BOT
+  WEB --> FUNC
+
+  BOT -->|webhook| FUNC
+  FUNC -->|consultas y pedidos| SQL
+  FUNC -->|respuesta| BOT
+  FUNC -->|respuesta| WEB
+
+  %% Automatizacion Stock
+  SCH --> FUNC
+
+  %% Analitica
+  FUNC --> BQ
+  BQ --> VA
+  BQ --> LOOKER
+  VA --> LOOKER
+
+  %% Respuesta hacia canales
+  BOT --> WAB
+  BOT --> FB
+  BOT --> CALL
+  BOT --> MAIL
+```
+
 
 ## **Descripción del Funcionamiento**
 ## **Flujo 1: Monitoreo Automático**
