@@ -15,12 +15,12 @@ Tiempo invertido: entre 2–3 horas diarias en consultas y verificación de prod
 
 ## **Solución Propuesta**
 Automatizar el control de inventario usando servicios de Google Cloud Platform (GCP)
-para que el sistema trabaje 24/7 sin mi intervención. El sistema hará:
-* Verificar automáticamente el stock cada hora (sin que yo entre a la web)
-* Enviar alertas a WhatsApp cuando un producto esté bajo: 'iPhone 15: Stock 3/10'
-* Predecir con IA cuánto se venderá: 'Venderás 18 labiales este mes, pide 20 unidades'
-* Responder automáticamente a clientes en WhatsApp: '¿Tienes iPhone? ® Sí, 5 unidades'
-* Mostrar dashboards con ventas, stock y predicciones actualizados en tiempo real
+* para que el sistema trabaje 24/7 sin mi intervención. El sistema hará:
+* Verificación automática de stock cada hora y por evento.
+* Alertas a los canales internos (p. ej., WhatsApp) cuando un producto esté bajo: “iPhone 15 – Stock 3/10”.
+* Predicción con IA de ventas por categoría y SKU: “Se proyectan 18 labiales este mes; reponer 20 unidades”.
+* Atención automática multicanal (WhatsApp, Facebook/Messenger, correo, llamadas IVR) con IA para consultas de disponibilidad, precio y estado de pedido.
+* Dashboards en tiempo real con ventas, stock y proyecciones.
 
 ## **Servicios GCP Utilizados**
 1. Cloud SQL
@@ -283,6 +283,69 @@ flowchart LR
   BOT --> MAIL
 ```
 
+```mermaid
+%%{init: {"theme":"base"}}%%
+flowchart LR
+
+  classDef canal fill:#E3F2FD,stroke:#1A73E8,stroke-width:1.3px,color:#0F1A2B;
+  classDef ia fill:#FFF8E1,stroke:#FB8C00,stroke-width:1.3px,color:#402A00;
+  classDef api fill:#E8F5E9,stroke:#2E7D32,stroke-width:1.3px,color:#0F2A10;
+  classDef datos fill:#FCE8E6,stroke:#C62828,stroke-width:1.3px,color:#3A0E0E;
+  classDef bi fill:#EEF7FF,stroke:#1A73E8,stroke-width:1.3px,color:#0F1A2B;
+
+  subgraph C1["Canales del cliente"]
+    WAB[WhatsApp Business]
+    FB[Facebook o Messenger]
+    CALL[Llamadas o Call Center]
+    MAIL[Correo electronico]
+    WEB[Plataforma Web - consultas y pedidos]
+  end
+  class WAB,FB,CALL,MAIL,WEB canal;
+
+  subgraph IA["IA conversacional"]
+    BOT[Dialogflow CX]
+  end
+  class BOT ia;
+
+  subgraph SVC["Backend"]
+    API[Cloud Run - API REST y Webhook]
+  end
+  class API api;
+
+  subgraph DB["Transaccional"]
+    MYSQL[(MySQL - Minegocio)]
+  end
+  class MYSQL datos;
+
+  subgraph BI["Analitica"]
+    BQRAW[(BigQuery - RAW)]
+    BQVIEW[(BigQuery - VIEW)]
+    LOOKER[Looker Studio - dashboard]
+  end
+  class BQRAW,BQVIEW,LOOKER bi;
+
+  %% Flujo operativo
+  WAB --> BOT
+  FB  --> BOT
+  CALL --> BOT
+  MAIL --> BOT
+  WEB --> API
+
+  BOT -->|webhook| API
+  API -->|consultas y pedidos| MYSQL
+  API -->|respuesta| BOT
+  API -->|respuesta| WEB
+
+  %% Historico y reportes
+  API -->|eventos y ventas| BQRAW
+  BQRAW --> BQVIEW --> LOOKER
+
+  %% Respuesta a canales
+  BOT --> WAB
+  BOT --> FB
+  BOT --> CALL
+  BOT --> MAIL
+```
 
 
 ## **Descripción del Funcionamiento**
