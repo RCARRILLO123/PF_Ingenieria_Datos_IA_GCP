@@ -4,15 +4,19 @@
 Tienda virtual multi-categoría que vende productos tecnológicos, juguetes, motocicletas y maquillaje. Cuenta con una plataforma eCommerce funcional con control de stock y canales de atención: WhatsApp Business, Facebook/Messenger, Llamadas, Correo y Web.
 
 ## **Problema**
-Actualmente tengo una plataforma eCommerce que funciona bien, pero el control de
-inventario es completamente MANUAL. Cada día debo:
-• Entrar a la web del eCommerce, iniciar sesión
-• Revisar producto por producto para ver el stock actual
-• Anotar manualmente cuáles productos están bajos
-• Cuando un cliente pregunta por WhatsApp, debo buscar en la web y responder manualmente
-• Para decidir qué comprar, no tengo predicciones, decido 'a ojo'
-Tiempo invertido: En consultas y verificación de productos se invierte diariamente entre 2-3
-horas diarias aproximadamente.
+Actualmente la plataforma eCommerce funciona, pero el control de inventario es manual. Cada día debo:
+
+Entrar a la web del eCommerce e iniciar sesión.
+
+Revisar producto por producto para ver el stock actual.
+
+Anotar manualmente cuáles productos están bajos.
+
+Cuando un cliente pregunta por WhatsApp, Facebook o correo, buscar en la web y responder manualmente.
+
+Para decidir compras, no hay predicciones; las decisiones son a ojo.
+
+Tiempo invertido: entre 2–3 horas diarias en consultas y verificación de productos.
 
 ## **Solución Propuesta**
 Automatizar el control de inventario usando servicios de Google Cloud Platform (GCP)
