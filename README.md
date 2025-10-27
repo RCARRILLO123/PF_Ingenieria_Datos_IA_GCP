@@ -221,6 +221,71 @@ flowchart LR
   BOT --> MAIL
 ```
 
+```mermaid
+%%{init: {"theme":"base"}}%%
+flowchart LR
+
+  classDef canal fill:#E3F2FD,stroke:#1A73E8,stroke-width:1.3px,color:#0F1A2B;
+  classDef ia fill:#FFF8E1,stroke:#FB8C00,stroke-width:1.3px,color:#402A00;
+  classDef api fill:#E8F5E9,stroke:#2E7D32,stroke-width:1.3px,color:#0F2A10;
+  classDef datos fill:#FCE8E6,stroke:#C62828,stroke-width:1.3px,color:#3A0E0E;
+  classDef bi fill:#EEF7FF,stroke:#1A73E8,stroke-width:1.3px,color:#0F1A2B;
+
+  subgraph C1["Canales del cliente"]
+    WAB[WhatsApp Business]
+    FB[Facebook o Messenger]
+    CALL[Llamadas o Call Center]
+    MAIL[Correo electronico]
+    WEB[Plataforma Web - consultas y pedidos]
+  end
+  class WAB,FB,CALL,MAIL,WEB canal;
+
+  subgraph IA["IA conversacional"]
+    BOT[Dialogflow CX]
+  end
+  class BOT ia;
+
+  subgraph SVC["Backend"]
+    API[Cloud Run - API REST y Webhook]
+  end
+  class API api;
+
+  subgraph DB["Transaccional"]
+    MYSQL[(MySQL - Minegocio)]
+  end
+  class MYSQL datos;
+
+  subgraph BI["Analitica"]
+    BQRAW[(BigQuery - RAW)]
+    BQVIEW[(BigQuery - VIEW)]
+    LOOKER[Looker Studio - dashboard]
+  end
+  class BQRAW,BQVIEW,LOOKER bi;
+
+  %% Flujo principal
+  WAB --> BOT
+  FB  --> BOT
+  CALL --> BOT
+  MAIL --> BOT
+  WEB --> API
+
+  BOT -->|webhook| API
+  API -->|consultas y pedidos| MYSQL
+  API -->|respuesta| BOT
+  API -->|respuesta| WEB
+
+  %% Historico y reportes
+  API -->|eventos y ventas| BQRAW
+  BQRAW --> BQVIEW --> LOOKER
+
+  %% Respuestas de salida a los canales
+  BOT --> WAB
+  BOT --> FB
+  BOT --> CALL
+  BOT --> MAIL
+```
+
+
 
 ## **Descripción del Funcionamiento**
 ## **Flujo 1: Monitoreo Automático**
