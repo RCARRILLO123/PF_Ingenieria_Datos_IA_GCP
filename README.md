@@ -43,8 +43,6 @@ Dashboards visuales. Muestra métricas actualizadas en tiempo real.
 
 ## 🗺️ Diagrama de Arquitectura GCP
 
-## Flujo actual (con colores)
-
 ```mermaid
 %%{init: {"theme":"base", "themeVariables":{
 "primaryColor":"#e8f0fe","primaryTextColor":"#1f1f1f","primaryBorderColor":"#1a73e8",
@@ -57,17 +55,17 @@ flowchart LR
 
   subgraph Canal["Canales del Cliente"]
     WAB[WhatsApp Business]
-    WEB[Plataforma Web<br/>(Consultas y Pedidos)]
+    WEB[Plataforma Web<br/>Consultas y Pedidos]
   end
   class WAB,WEB canal;
 
   subgraph IA["IA Conversacional"]
-    BOT[Motor de IA / NLU<br/>(Dialogflow u otro)]
+    BOT[Motor de IA / NLU<br/>Dialogflow u otro]
   end
   class BOT ia;
 
   subgraph API["API Backend"]
-    SRV[Servicio API<br/>(REST / Webhook)]
+    SRV[Servicio API<br/>REST / Webhook]
   end
   class SRV api;
 
