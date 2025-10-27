@@ -181,7 +181,7 @@ flowchart LR
   3. Vertex AI analiza el comportamiento de ventas y predice la demanda futura.
   4. Se calcula automáticamente la cantidad recomendada de reposición:
     demanda_predicha – stock_actual
-  5. Se guarda la recomendación en BigQuery y se muestra en Looker Studi
+  5. Se guarda la recomendación en BigQuery y se muestra en Looker Studio
 ## **Flujo 3: Atención Automática Multicanal (WhatsApp, Facebook, Llamadas, Correo y Web)**
   1. El cliente realiza una consulta desde cualquier canal:
       * WhatsApp Business
@@ -191,4 +191,9 @@ flowchart LR
       * Plataforma Web
   2. Dialogflow CX interpreta la intención del cliente (ej: consultar stock, precio, estado de pedido).
   3. Cloud Functions consulta la información en Cloud SQL (Minegocio).
-  4. El bot responde automáticamente en el mismo canal donde el cliente inició la conversación.al
+  4. El bot responde automáticamente en el mismo canal donde el cliente inició la conversación.
+## **Resumen**
+* El sistema monitorea stock automáticamente.
+* Predice la demanda y sugiere cuánto reponer.
+* Responde a clientes en múltiples canales sin personal humano.
+* Looker Studio muestra todo en tiempo real. 
