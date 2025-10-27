@@ -1,8 +1,7 @@
 # Proyecto Final - Ingeniería de Datos e IA con GCP
 
 ## **Caso de estudio**
-Tienda virtual multi-categoría que vende productos tecnológicos, juguetes,
-motocicletas y maquillaje. Tiene plataforma eCommerce funcional con control de stock
+Tienda virtual multi-categoría que vende productos tecnológicos, juguetes, motocicletas y maquillaje. Cuenta con una plataforma eCommerce funcional con control de stock y canales de atención: WhatsApp Business, Facebook/Messenger, Llamadas, Correo y Web.
 
 ## **Problema**
 Actualmente tengo una plataforma eCommerce que funciona bien, pero el control de
