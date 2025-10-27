@@ -165,6 +165,63 @@ flowchart LR
   BOT --> WAB
 ```
 
+```mermaid
+%%{init: {"theme":"base"}}%%
+flowchart LR
+
+  %% Estilos
+  classDef canal fill:#E3F2FD,stroke:#1A73E8,stroke-width:1.3px,color:#0F1A2B;
+  classDef ia fill:#FFF8E1,stroke:#FB8C00,stroke-width:1.3px,color:#402A00;
+  classDef api fill:#E8F5E9,stroke:#2E7D32,stroke-width:1.3px,color:#0F2A10;
+  classDef datos fill:#FCE8E6,stroke:#C62828,stroke-width:1.3px,color:#3A0E0E;
+
+  %% Canales del cliente
+  subgraph C1["Canales del cliente"]
+    WAB[WhatsApp Business]
+    FB[Facebook o Messenger]
+    CALL[Llamadas o Call Center]
+    MAIL[Correo electronico]
+    WEB[Plataforma Web - consultas y pedidos]
+  end
+  class WAB,FB,CALL,MAIL,WEB canal;
+
+  %% IA
+  subgraph IA["IA conversacional"]
+    BOT[Dialogflow CX]
+  end
+  class BOT ia;
+
+  %% API
+  subgraph SVC["Backend"]
+    API[Cloud Run - API REST y Webhook]
+  end
+  class API api;
+
+  %% Datos
+  subgraph DB["Datos"]
+    MYSQL[(MySQL - Minegocio)]
+  end
+  class MYSQL datos;
+
+  %% Flujo
+  WAB --> BOT
+  FB  --> BOT
+  CALL --> BOT
+  MAIL --> BOT
+  WEB --> API
+
+  BOT -->|webhook| API
+  API -->|consultas y pedidos| MYSQL
+  API -->|respuesta| BOT
+  API -->|respuesta| WEB
+
+  BOT --> WAB
+  BOT --> FB
+  BOT --> CALL
+  BOT --> MAIL
+```
+
+
 ## **Descripción del Funcionamiento**
 ## **Flujo 1: Monitoreo Automático**
   1. Cloud Scheduler activa cada hora (ej: 8am, 9am, 10am...)
